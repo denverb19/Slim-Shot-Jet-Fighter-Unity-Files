@@ -1402,3 +1402,54 @@ AssetImportParameters requested are different than current active one (requested
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 5844.115456 seconds.
+  path: Assets/Level One Terrain.asset
+  artifactKey: Guid(51356fd335b651241b650e8b3a39a1f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Level One Terrain.asset using Guid(51356fd335b651241b650e8b3a39a1f0) Importer(815301076,1909f56bfc062723c751e8b465ee728b) The tree Dry3677 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+The tree Dry6845 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+The tree Dry8950 must use the Nature/Soft Occlusion shader. Otherwise billboarding/lighting will not work correctly.
+ -> (artifact id: '11ea0a4a8051cea38e1cb9cb7a653fc8') in 0.155708 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 848.306213 seconds.
+  path: Assets/imported Assets/TerrainTexturesPackFree/DemoScene
+  artifactKey: Guid(daaf684aaa977cb4bb502a01c3040027) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/TerrainTexturesPackFree/DemoScene using Guid(daaf684aaa977cb4bb502a01c3040027) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b6a4c9171d15a9a4ccce7bfb82b45ef5') in 0.008309 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 9.489873 seconds.
+  path: Assets/imported Assets/TreeAndGrassPack/Textures
+  artifactKey: Guid(aeeb038050a0943aaa29f0b663963c41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/TreeAndGrassPack/Textures using Guid(aeeb038050a0943aaa29f0b663963c41) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7234b071a9873580e3cafa5074ece387') in 0.008620 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.094767 seconds.
+  path: Assets/imported Assets/TreeAndGrassPack/Textures/grass.png
+  artifactKey: Guid(3afc87d8e623d4b61b724a5fddbd3f44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/TreeAndGrassPack/Textures/grass.png using Guid(3afc87d8e623d4b61b724a5fddbd3f44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ee95b0b3ddeb1c00098fb3a56c34e5a') in 0.032279 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/imported Assets/TreeAndGrassPack/Textures/rock.png
+  artifactKey: Guid(81d77851dca5b4258ab1ef0f119b7a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/TreeAndGrassPack/Textures/rock.png using Guid(81d77851dca5b4258ab1ef0f119b7a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '637f77e07ad980e74b6ce46635644568') in 0.020347 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 6.916295 seconds.
+  path: Assets/imported Assets/Tom's Terrain Tools/Unity Terrain Assets
+  artifactKey: Guid(55da643c2977def41b71eb7132df32ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/Tom's Terrain Tools/Unity Terrain Assets using Guid(55da643c2977def41b71eb7132df32ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ee7dbe6574ea4c1e2129dc9f8926d64') in 0.011740 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 1.833132 seconds.
+  path: Assets/imported Assets/Tom's Terrain Tools/Unity Terrain Assets/Textures
+  artifactKey: Guid(80b4d8d43d91bb343a49ae32da5699c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/Tom's Terrain Tools/Unity Terrain Assets/Textures using Guid(80b4d8d43d91bb343a49ae32da5699c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '863b7b8c4e47fc603fe9450b6bda6939') in 0.002623 seconds 
+========================================================================
+Received Import Request.
+  Time since last request: 232.225029 seconds.
+  path: Assets/imported Assets/Tom's Terrain Tools/Unity Terrain Assets/Materials/Forest Floor.mat
+  artifactKey: Guid(f4af10e96a7ea354084ccd66598beddd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/imported Assets/Tom's Terrain Tools/Unity Terrain Assets/Materials/Forest Floor.mat using Guid(f4af10e96a7ea354084ccd66598beddd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '014823aabec1a3b95223a681de1cc234') in 0.175958 seconds 
