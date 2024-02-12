@@ -4,15 +4,25 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Movement Settings")]
     [SerializeField] float controlSpeed = 10f;
-    [SerializeField] float rotationSpeed = 1f;
-    [SerializeField] float xRange = 9f;
+    [SerializeField] float zRotationFactor = 0.01f;
+    [SerializeField] float xRotationFactor = 0.0025f;
+    [SerializeField] float yRotationFactor = 0.0025f;
+    [SerializeField] float xRange = 11f;
     [SerializeField] float yRange = 4f;
-    [SerializeField] float zRotationRange = 75f;
-    [SerializeField] float xRotationRange = 75f;
+    [Header("Rotation Settings")]
+    [SerializeField] float zRotationRange = 60f;
+    [SerializeField] float xRotationRange = 60f;
+    [SerializeField] float yRotationRange = 25f;
+    [Header("Weapon Settings")]
+    [SerializeField] GameObject[] primaryLasers;
+    ParticleSystem primaryLasersLeft;
+    ParticleSystem primaryLasersRight;
     void Start()
     {
-        
+        primaryLasersLeft = primaryLasers[0].GetComponent<ParticleSystem>();
+        primaryLasersRight = primaryLasers[1].GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -20,10 +30,10 @@ public class PlayerController : MonoBehaviour
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        //Debug.Log("horizontal input is: " + horizontalInput);
-        //Debug.Log("vertical input is: " + verticalInput);
+        bool primaryFireInput = Input.GetButton("Fire1");
         ProcessPlayerMovement(horizontalInput, verticalInput);
         ProcessRotation(horizontalInput, verticalInput);
+        ProcessWeaponFire(primaryFireInput);
     }
     void ProcessPlayerMovement(float xInput, float yInput)
     {
@@ -38,14 +48,32 @@ public class PlayerController : MonoBehaviour
     }
     void ProcessRotation(float xInput, float yInput)
     {
-        float zRotationSpeed = xInput * 10000f * rotationSpeed;
-        //float zRotationOffset = Mathf.Round(zRotationSpeed);
-        //Debug.Log("zRotationOffset is: " + zRotationOffset);
+        float zRotationSpeed = xInput * 10000f * zRotationFactor;
         float zRotationChange = Mathf.Clamp( zRotationSpeed, -zRotationRange, zRotationRange );
-        float xRotationSpeed = yInput * 10000f * rotationSpeed;
-        //float xRotationOffset = Mathf.Round(xRotationSpeed);
-        //Debug.Log("xRotationOffset is: " + xRotationOffset);
+        float yRotationSpeed = xInput * 10000f * yRotationFactor;
+        float yRotationChange = Mathf.Clamp( yRotationSpeed, -yRotationRange, yRotationRange );
+        float xRotationSpeed = yInput * 10000f * xRotationFactor;
         float xRotationChange = Mathf.Clamp( xRotationSpeed, -xRotationRange, xRotationRange );
-        transform.localRotation = Quaternion.Euler(-xRotationChange, 0f, -zRotationChange);
+        //transform.localRotation = Quaternion.Euler(-xRotationChange, 0f, -zRotationChange);
+        transform.localRotation = Quaternion.Euler(-xRotationChange, yRotationChange, -zRotationChange);
     }
+    void ProcessWeaponFire(bool primaryFireInput)
+    {
+        if(primaryFireInput)
+        {
+            SetFirePrimaryLasers(true);
+        }
+        else
+        {
+            SetFirePrimaryLasers(false);
+        }
+    }
+    void SetFirePrimaryLasers(bool setFireOption)
+    {
+        var leftEmitter = primaryLasersLeft.emission;
+        var rightEmitter = primaryLasersRight.emission;
+        leftEmitter.enabled = setFireOption;
+        rightEmitter.enabled = setFireOption;
+    }
+
 }
