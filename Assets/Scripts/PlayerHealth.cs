@@ -8,28 +8,44 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] float delayDesired = 2f;
     [SerializeField] ParticleSystem playerDeathExplosion;
     private PlayerController playerControllerscript;
+    [SerializeField] AudioClip deathSoundClip;
+    //[SerializeField] int playerLives = 3;
+    public AudioSource playerAudioSource;
+    ScoreBoard currentScoreboard;
+    //AudioSource deathSound;
     // Start is called before the first frame update
     void Start()
     {
         playerControllerscript = GetComponent<PlayerController>();
+        //deathSound = gameObject.GetComponent<AudioSource>();
+        //playerAudioSource = playerControllerscript.playerAudioSource;
+        StartCoroutine(getScoreBoard());
     }
     // Update is called once per frame
     void Update()
     {
         
     }
+    IEnumerator getScoreBoard()
+    {
+        yield return new WaitForSeconds(1);
+        currentScoreboard = FindObjectOfType<ScoreBoard>();
+    }
     void OnTriggerEnter(Collider other)
     {
-        switch (other.gameObject.tag)
+        if(!playerControllerscript.isEvading)
         {
-            case "Enemy":
-                CrashSequence();
-                break;
-            case "Terrain":
-                CrashSequence();
-                break;
-            default:
-                break;
+            switch (other.gameObject.tag)
+            {
+                case "Enemy":
+                    CrashSequence();
+                    break;
+                case "Terrain":
+                    CrashSequence();
+                    break;
+                default:
+                    break;
+            }
         }
     }
     void CrashSequence()
@@ -44,13 +60,26 @@ public class PlayerHealth : MonoBehaviour
             }
             playerDeathExplosion.GetComponent<Renderer>().enabled = true;
             playerDeathExplosion.Play();
+            playerAudioSource.clip = deathSoundClip;
+            playerAudioSource.Play();
+            //deathSound.Play();
             StartCoroutine(ReloadLevel(delayDesired));
         }
     }
     IEnumerator ReloadLevel(float delayRequired)
     {
         yield return new WaitForSeconds(delayRequired);
-        int currentLevel = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentLevel);
+        currentScoreboard.decreasePlayerLives(1);
+        int currentLives = currentScoreboard.getPlayerLives();
+        //playerLives -= 1;
+        if(currentLives > 0)
+        {
+            int currentLevel = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentLevel);
+        }
+        else
+        {
+            SceneManager.LoadScene(0);//load main menu
+        }
     }
 }
