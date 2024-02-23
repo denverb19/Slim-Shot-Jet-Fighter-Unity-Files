@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5ad55b4c7ceca44c9680e48c2878afe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerRig: {fileID: 0}
   controlSpeed: 10
   zRotationFactor: 0.01
   xRotationFactor: 0.0025
@@ -91,14 +92,16 @@ MonoBehaviour:
   xRotationRange: 60
   yRotationRange: 25
   evasionLength: 2
+  evasionCooldownLength: 2
+  evadeSoundClip: {fileID: 8300000, guid: 084895b0f83e9da46aa3201518a829ab, type: 3}
   primaryLasers:
   - {fileID: 8863769820484253895}
   - {fileID: 4441337443492664937}
-  evadeSoundClip: {fileID: 8300000, guid: 084895b0f83e9da46aa3201518a829ab, type: 3}
+  missilePrefab: {fileID: 1374693194890512, guid: 285fd8dbd96cfab43b28b8e12386178d, type: 3}
   playerAudioSource: {fileID: 2874340248816093087}
-  laserSounds: {fileID: 0}
   isEvading: 0
   evadingRight: 1
+  evadeOnCooldown: 0
 --- !u!54 &7580490630896856075
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -141,7 +144,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32efeb6f9a770c40bd4067d1814e176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealthMaximum: 5
   delayDesired: 2
+  damageDelayRequired: 0.1
   playerDeathExplosion: {fileID: 4482754088409037248}
   deathSoundClip: {fileID: 8300000, guid: b345912ca06e683478d481c0107b3e42, type: 3}
   playerAudioSource: {fileID: 2874340248816093087}

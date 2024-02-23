@@ -14,7 +14,8 @@ public class MusicPlayerControllerMainMenu : MonoBehaviour
         ScoreBoard currentBoard = FindObjectOfType<ScoreBoard>();
         if(currentBoard != null)
         {
-            Destroy(currentBoard.gameObject.transform.parent.gameObject);
+            //Destroy(currentBoard.gameObject.transform.parent.gameObject);
+            Destroy(currentBoard.gameObject.transform.parent.transform.parent.gameObject);
         }
         int musicPlayerInstanceCount = FindObjectsOfType<MusicPlayerControllerMainMenu>().Length;
         if ( musicPlayerInstanceCount > 1)

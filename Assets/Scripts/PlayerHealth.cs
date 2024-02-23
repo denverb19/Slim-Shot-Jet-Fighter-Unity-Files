@@ -5,28 +5,38 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
+    [SerializeField] float playerHealthMaximum = 5;
     [SerializeField] float delayDesired = 2f;
+    [SerializeField] float damageDelayRequired = 0.5f;
     [SerializeField] ParticleSystem playerDeathExplosion;
     private PlayerController playerControllerscript;
     [SerializeField] AudioClip deathSoundClip;
     //[SerializeField] int playerLives = 3;
     public AudioSource playerAudioSource;
     ScoreBoard currentScoreboard;
+    HealthSlider healthSliderScript;
+    //LifeCounter currentLifeCounter;
+    private float playerCurrentHealth;
+    private bool takingDamage = false;
     //AudioSource deathSound;
     // Start is called before the first frame update
     void Start()
     {
         playerControllerscript = GetComponent<PlayerController>();
+        healthSliderScript = FindObjectOfType<HealthSlider>();
+        //currentLifeCounter = FindObjectOfType<LifeCounter>();
+        playerCurrentHealth = playerHealthMaximum;
         //deathSound = gameObject.GetComponent<AudioSource>();
         //playerAudioSource = playerControllerscript.playerAudioSource;
-        StartCoroutine(getScoreBoard());
+        StartCoroutine(GetScoreBoard());
+        healthSliderScript.UpdateHealth(playerCurrentHealth/playerHealthMaximum);
     }
     // Update is called once per frame
     void Update()
     {
         
     }
-    IEnumerator getScoreBoard()
+    IEnumerator GetScoreBoard()
     {
         yield return new WaitForSeconds(1);
         currentScoreboard = FindObjectOfType<ScoreBoard>();
@@ -38,15 +48,32 @@ public class PlayerHealth : MonoBehaviour
             switch (other.gameObject.tag)
             {
                 case "Enemy":
-                    CrashSequence();
+                    StartCoroutine(TakeDamage(1f));
+                    //CrashSequence();
                     break;
                 case "Terrain":
-                    CrashSequence();
+                    StartCoroutine(TakeDamage(1f));
+                    //CrashSequence();
                     break;
                 default:
                     break;
             }
         }
+    }
+    IEnumerator TakeDamage(float damageAmount)
+    {
+        if(!takingDamage)
+        {
+            takingDamage = true;
+            playerCurrentHealth -= damageAmount;
+            healthSliderScript.UpdateHealth(playerCurrentHealth/playerHealthMaximum);
+            if(playerCurrentHealth <= 0.0f)
+            {
+                CrashSequence();
+            }
+        }
+        yield return new WaitForSeconds(damageDelayRequired);
+        takingDamage = false;
     }
     void CrashSequence()
     {
@@ -70,6 +97,7 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(delayRequired);
         currentScoreboard.decreasePlayerLives(1);
+        //currentLifeCounter.UpdatePlayerLives();
         int currentLives = currentScoreboard.getPlayerLives();
         //playerLives -= 1;
         if(currentLives > 0)
@@ -79,7 +107,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(0);//load main menu
+            SceneManager.LoadScene(3);//load score screen
         }
     }
 }
