@@ -34,7 +34,7 @@ public class EnemyHealth : MonoBehaviour
     }
     void OnParticleCollision(GameObject collidedObject)
     {
-        ProcessHit();
+        ProcessHit(1);
         //StartCoroutine(Deaththroes(deathLength));
         //Debug.Log(this.name + " was hit by: " + collidedObject.gameObject.name);
         //Destroy(gameObject);
@@ -56,9 +56,9 @@ public class EnemyHealth : MonoBehaviour
                 break;
         }
     }
-    void ProcessHit()
+    public void ProcessHit(int damageTaken)
     {
-        enemyHealth--;
+        enemyHealth -= damageTaken;
         if ( enemyHealth <= 0 && !isDying)
         {
             //isDying = true;

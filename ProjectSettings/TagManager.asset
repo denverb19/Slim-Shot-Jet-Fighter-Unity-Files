@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Terrain
   - VFX Parent
+  - Upgrade 1
+  - Upgrade 2
+  - Upgrade Pickup
   layers:
   - Default
   - TransparentFX

@@ -11,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] ParticleSystem playerDeathExplosion;
     private PlayerController playerControllerscript;
     [SerializeField] AudioClip deathSoundClip;
+    [SerializeField] int startingMissileCount = 10;
     //[SerializeField] int playerLives = 3;
     public AudioSource playerAudioSource;
     ScoreBoard currentScoreboard;
@@ -18,6 +19,7 @@ public class PlayerHealth : MonoBehaviour
     //LifeCounter currentLifeCounter;
     private float playerCurrentHealth;
     private bool takingDamage = false;
+    public int upgradeLevel = 0;
     //AudioSource deathSound;
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,10 @@ public class PlayerHealth : MonoBehaviour
                     StartCoroutine(TakeDamage(1f));
                     //CrashSequence();
                     break;
+                case "Upgrade Pickup":
+                    other.gameObject.GetComponent<PickUpScript>().DestroyPickup();
+                    UpgradeShip();
+                    break;
                 default:
                     break;
             }
@@ -75,6 +81,19 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(damageDelayRequired);
         takingDamage = false;
     }
+    void UpgradeShip()
+    {
+        if(upgradeLevel == 0)
+        {
+            upgradeLevel = 1;
+            GameObject[] upgradeParts = GameObject.FindGameObjectsWithTag("Upgrade 1");
+            foreach (GameObject part in upgradeParts)
+            {
+                part.GetComponent<MeshRenderer>().enabled = true;
+                //part.SetActive(true);
+            }
+        }
+    }
     void CrashSequence()
     {
         if (playerControllerscript.enabled == true)
@@ -89,6 +108,11 @@ public class PlayerHealth : MonoBehaviour
             playerDeathExplosion.Play();
             playerAudioSource.clip = deathSoundClip;
             playerAudioSource.Play();
+            int currentMissileCount = currentScoreboard.GetMissileCount();
+            if(currentMissileCount < startingMissileCount)
+            {
+                currentScoreboard.ChangeMissileCount(startingMissileCount - currentMissileCount);
+            }
             //deathSound.Play();
             StartCoroutine(ReloadLevel(delayDesired));
         }

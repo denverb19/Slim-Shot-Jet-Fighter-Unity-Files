@@ -151,7 +151,11 @@ public class PlayerController : MonoBehaviour
         }
         if(secondaryFireInput && !missileOnCooldown)
         {
-            StartCoroutine(FireMissile());
+            if(currentScoreBoard.GetMissileCount() > 0)
+            {
+                StartCoroutine(FireMissile());
+            }
+            //StartCoroutine(FireMissile());
         }
     }
     void SetFirePrimaryLasers(bool setFireOption)
@@ -199,7 +203,10 @@ public class PlayerController : MonoBehaviour
         Instantiate(missilePrefab, leftMissilePosition, missileRotation);
         Instantiate(missilePrefab, rightMissilePosition, missileRotation);
         //missile.transform.parent = playerRig.transform;
+        currentScoreBoard.ChangeMissileColor(255, 0, 64, 255);
+        currentScoreBoard.ChangeMissileCount(-2);
         yield return new WaitForSeconds(missileCooldown);
+        currentScoreBoard.ChangeMissileColor(255, 255, 255, 255);
         missileOnCooldown = false;
     }
     IEnumerator EvadeRoll(float horizontalInput)

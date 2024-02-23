@@ -11,8 +11,12 @@ public class ScoreBoard : MonoBehaviour
     // Start is called before the first frame update
     private int currentScore = 0;
     [SerializeField] int playerLives = 3;
+    //[SerializeField] int startingMissiles = 10;
+    [SerializeField] int missileCount = 10;
     [SerializeField] TMP_Text livesCountText;
+    [SerializeField] TMP_Text missileCountText;
     [SerializeField] Image engineImage;
+    [SerializeField] Image missileImage;
     TMP_Text scoreText;
     void Awake()
     {
@@ -30,8 +34,10 @@ public class ScoreBoard : MonoBehaviour
     }
     void Start()
     {
+        
         scoreText = GetComponent<TMP_Text>();
         livesCountText.text = playerLives.ToString("0") + "\nLives";
+        missileCountText.text = missileCount.ToString("000");
         //scoreText.text = "Test Passed";
     }
     public void IncreaseScore(int incrementPassed)
@@ -54,9 +60,22 @@ public class ScoreBoard : MonoBehaviour
     {
         return currentScore;
     }
+    public void ChangeMissileCount(int missileCountChange)
+    {
+        missileCount += missileCountChange;
+        missileCountText.text = missileCount.ToString("000");
+    }
+    public int GetMissileCount()
+    {
+        return missileCount;
+    }
     public void ChangeEngineColor(int redColor, int greenColor, int blueColor, int opacityLevel)
     {
         engineImage.GetComponent<Image>().color = new Color32((byte)redColor, (byte)greenColor, (byte)blueColor, (byte)opacityLevel);
+    }
+    public void ChangeMissileColor(int redColor, int greenColor, int blueColor, int opacityLevel)
+    {
+        missileImage.GetComponent<Image>().color = new Color32((byte)redColor, (byte)greenColor, (byte)blueColor, (byte)opacityLevel);
     }
 
     // Update is called once per frame
