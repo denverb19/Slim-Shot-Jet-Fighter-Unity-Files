@@ -25,8 +25,9 @@ public class EnemyHealth : MonoBehaviour
     //EnemyShooter thisShooterScript;
     void Start()
     {
-        currentScoreboard = FindObjectOfType<ScoreBoard>();
-        VFXparent = GameObject.FindWithTag("VFX Parent");
+        //StartCoroutine(GetScoreBoard());
+        //currentScoreboard = FindObjectOfType<ScoreBoard>();
+        //VFXparent = GameObject.FindWithTag("VFX Parent");
         thisRigidbody = gameObject.AddComponent<Rigidbody>();
         thisRigidbody.useGravity = false;
         deathSound = gameObject.GetComponent<AudioSource>();
@@ -64,6 +65,7 @@ public class EnemyHealth : MonoBehaviour
         if ( enemyHealth <= 0f && !isDying)
         {
             //isDying = true;
+            currentScoreboard = FindObjectOfType<ScoreBoard>();
             currentScoreboard.IncreaseScore(enemyValue);
             //DisableShip();
             //StartCoroutine(Deaththroes(deathLength));
@@ -103,17 +105,18 @@ public class EnemyHealth : MonoBehaviour
         {
             showingDamage = true;
             GameObject damageVFX = Instantiate(enemyDamageVFX, transform.position, Quaternion.identity);
+            VFXparent = GameObject.FindWithTag("VFX Parent");
             damageVFX.transform.parent = VFXparent.transform;
             SelfDestruct selfDestructorScriptDamage = damageVFX.GetComponent<SelfDestruct>();
             yield return new WaitForSeconds(damageTime);
             selfDestructorScriptDamage.DestructSelf();
             showingDamage = false;    
         }
-        
     }
     IEnumerator Deaththroes(float endLength)
     {
         GameObject deathVFX = Instantiate(enemyDeathExplosion, transform.position, Quaternion.identity);
+        VFXparent = GameObject.FindWithTag("VFX Parent");
         deathVFX.transform.parent = VFXparent.transform;
         SelfDestruct selfDestructorScriptDeath = deathVFX.GetComponent<SelfDestruct>();
         deathSound.Play();
@@ -131,6 +134,16 @@ public class EnemyHealth : MonoBehaviour
         //thisShooterScript.SetDeath();
         Destroy(gameObject);
     }
+    /*IEnumerator GetScoreBoard()
+    {
+        //playerControllerscript = GetComponent<PlayerController>();
+        
+        yield return new WaitForSeconds(1f);
+        //healthSliderScript = FindObjectOfType<HealthSlider>();
+        //healthSliderScript.UpdateHealth(playerCurrentHealth/playerHealthMaximum);
+        currentScoreboard = FindObjectOfType<ScoreBoard>();
+        VFXparent = GameObject.FindWithTag("VFX Parent");
+    }*/
     public float GetHealth()
     {
         return enemyHealth;

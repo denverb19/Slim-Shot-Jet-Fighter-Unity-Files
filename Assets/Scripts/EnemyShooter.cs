@@ -18,7 +18,7 @@ public class EnemyShooter : MonoBehaviour
     float initialYRotation = 0f;
     [SerializeField] float offsetSize = 25f;
     //EnemyHealth thisHealthScript;
-    float currentHealth = 3f;
+    //float currentHealth = 3f;
     void Start()
     {
         //isPrimaryOnCooldown = false;

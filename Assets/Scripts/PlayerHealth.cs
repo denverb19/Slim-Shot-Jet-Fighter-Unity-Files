@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     ScoreBoard currentScoreboard;
     HealthSlider healthSliderScript;
     //LifeCounter currentLifeCounter;
-    private float playerCurrentHealth;
+    [SerializeField] float playerCurrentHealth = 5;
     private bool takingDamage = false;
     public int upgradeLevel = 0;
     //AudioSource deathSound;
@@ -31,8 +31,8 @@ public class PlayerHealth : MonoBehaviour
         playerCurrentHealth = playerHealthMaximum;
         //deathSound = gameObject.GetComponent<AudioSource>();
         //playerAudioSource = playerControllerscript.playerAudioSource;
-        StartCoroutine(GetScoreBoard());
         healthSliderScript.UpdateHealth(playerCurrentHealth/playerHealthMaximum);
+        StartCoroutine(GetScoreBoard());
     }
     // Update is called once per frame
     void Update()
@@ -41,7 +41,11 @@ public class PlayerHealth : MonoBehaviour
     }
     IEnumerator GetScoreBoard()
     {
-        yield return new WaitForSeconds(1);
+        //playerControllerscript = GetComponent<PlayerController>();
+        
+        yield return new WaitForSeconds(1f);
+        healthSliderScript = FindObjectOfType<HealthSlider>();
+        healthSliderScript.UpdateHealth(playerCurrentHealth/playerHealthMaximum);
         currentScoreboard = FindObjectOfType<ScoreBoard>();
     }
     void OnTriggerEnter(Collider other)
@@ -138,6 +142,7 @@ public class PlayerHealth : MonoBehaviour
                 currentScoreboard.ChangeMissileCount(startingMissileCount - currentMissileCount);
             }
             int currentLevel = SceneManager.GetActiveScene().buildIndex;
+            //healthSliderScript.UpdateHealth(1f);
             SceneManager.LoadScene(currentLevel);
         }
         else
