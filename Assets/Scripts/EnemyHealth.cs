@@ -12,7 +12,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] GameObject enemyDamageVFX;
     //[SerializeField] Transform VFXparent;
     [SerializeField] int enemyValue = 5;
-    [SerializeField] int enemyHealth = 3;
+    [SerializeField] float enemyHealth = 3f;
     //private SelfDestruct selfDestructorScriptDamage;
     //private SelfDestruct selfDestructorScriptDeath;
     GameObject VFXparent;
@@ -22,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
     ScoreBoard currentScoreboard;
     Rigidbody thisRigidbody;
     AudioSource deathSound;
+    //EnemyShooter thisShooterScript;
     void Start()
     {
         currentScoreboard = FindObjectOfType<ScoreBoard>();
@@ -29,12 +30,13 @@ public class EnemyHealth : MonoBehaviour
         thisRigidbody = gameObject.AddComponent<Rigidbody>();
         thisRigidbody.useGravity = false;
         deathSound = gameObject.GetComponent<AudioSource>();
+        //thisShooterScript = gameObject.GetComponent<EnemyShooter>();
         //thisRigidbody.isKinematic = true;
         //selfDestructorScript = GetComponent<SelfDestruct>();
     }
     void OnParticleCollision(GameObject collidedObject)
     {
-        ProcessHit(1);
+        ProcessHit(1f);
         //StartCoroutine(Deaththroes(deathLength));
         //Debug.Log(this.name + " was hit by: " + collidedObject.gameObject.name);
         //Destroy(gameObject);
@@ -43,9 +45,9 @@ public class EnemyHealth : MonoBehaviour
     {
         switch (other.gameObject.tag)
         {
-            case "Enemy":
-                DeathSequence();
-                break;
+            //case "Enemy":
+                //DeathSequence();
+                //break;
             case "Terrain":
                 DeathSequence();
                 break;
@@ -56,10 +58,10 @@ public class EnemyHealth : MonoBehaviour
                 break;
         }
     }
-    public void ProcessHit(int damageTaken)
+    public void ProcessHit(float damageTaken)
     {
         enemyHealth -= damageTaken;
-        if ( enemyHealth <= 0 && !isDying)
+        if ( enemyHealth <= 0f && !isDying)
         {
             //isDying = true;
             currentScoreboard.IncreaseScore(enemyValue);
@@ -82,6 +84,9 @@ public class EnemyHealth : MonoBehaviour
         }
         //gameObject.GetComponent<Collider>().enabled = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        //EnemyShooter thisShooterScript = gameObject.GetComponent<EnemyShooter>();
+        //thisShooterScript.SetDeath();
+        //thisShooterScript.ResetCooldown();
     }
     void DeathSequence()
     {
@@ -112,9 +117,22 @@ public class EnemyHealth : MonoBehaviour
         deathVFX.transform.parent = VFXparent.transform;
         SelfDestruct selfDestructorScriptDeath = deathVFX.GetComponent<SelfDestruct>();
         deathSound.Play();
+        //EnemyShooter thisShooterScript = gameObject.GetComponent<EnemyShooter>().ResetCooldown();
+        
         //enemyDeathExplosion.Play();
         yield return new WaitForSeconds(endLength);
         selfDestructorScriptDeath.DestructSelf();
+        /*if(thisShooterScript != null)
+        {
+            thisShooterScript.ResetCooldown();
+        }*/
+        //thisShooterScript.ResetCooldown();
+        //gameObject.GetComponent<EnemyShooter>().ResetCooldown();
+        //thisShooterScript.SetDeath();
         Destroy(gameObject);
+    }
+    public float GetHealth()
+    {
+        return enemyHealth;
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField] float playerHealthMaximum = 5;
     [SerializeField] float delayDesired = 2f;
-    [SerializeField] float damageDelayRequired = 0.5f;
+    [SerializeField] float damageDelayRequired = 0.1f;
     [SerializeField] ParticleSystem playerDeathExplosion;
     private PlayerController playerControllerscript;
     [SerializeField] AudioClip deathSoundClip;
@@ -53,6 +54,11 @@ public class PlayerHealth : MonoBehaviour
                     StartCoroutine(TakeDamage(1f));
                     //CrashSequence();
                     break;
+                case "Enemy Weapon":
+                    float damageToTake = other.gameObject.GetComponent<MissileControls>().GetDamage();
+                    StartCoroutine(TakeDamage(damageToTake));
+                    Destroy(other.gameObject, 0f);
+                    break;
                 case "Terrain":
                     StartCoroutine(TakeDamage(1f));
                     //CrashSequence();
@@ -66,7 +72,7 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
-    IEnumerator TakeDamage(float damageAmount)
+    public IEnumerator TakeDamage(float damageAmount)
     {
         if(!takingDamage)
         {
@@ -108,11 +114,11 @@ public class PlayerHealth : MonoBehaviour
             playerDeathExplosion.Play();
             playerAudioSource.clip = deathSoundClip;
             playerAudioSource.Play();
-            int currentMissileCount = currentScoreboard.GetMissileCount();
+            /*int currentMissileCount = currentScoreboard.GetMissileCount();
             if(currentMissileCount < startingMissileCount)
             {
                 currentScoreboard.ChangeMissileCount(startingMissileCount - currentMissileCount);
-            }
+            }*/
             //deathSound.Play();
             StartCoroutine(ReloadLevel(delayDesired));
         }
@@ -126,6 +132,11 @@ public class PlayerHealth : MonoBehaviour
         //playerLives -= 1;
         if(currentLives > 0)
         {
+            int currentMissileCount = currentScoreboard.GetMissileCount();
+            if(currentMissileCount < startingMissileCount)
+            {
+                currentScoreboard.ChangeMissileCount(startingMissileCount - currentMissileCount);
+            }
             int currentLevel = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currentLevel);
         }

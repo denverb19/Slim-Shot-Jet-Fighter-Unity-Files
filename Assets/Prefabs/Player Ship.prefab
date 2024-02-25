@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2874340248816093087}
   m_Layer: 0
   m_Name: Player Ship
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -92,8 +92,8 @@ MonoBehaviour:
   zRotationFactor: 0.01
   xRotationFactor: 0.0025
   yRotationFactor: 0.0025
-  xRange: 11
-  yRange: 4
+  xRange: 15
+  yRange: 5
   zRotationRange: 60
   xRotationRange: 60
   yRotationRange: 25
@@ -157,6 +157,7 @@ MonoBehaviour:
   damageDelayRequired: 0.1
   playerDeathExplosion: {fileID: 4482754088409037248}
   deathSoundClip: {fileID: 8300000, guid: b345912ca06e683478d481c0107b3e42, type: 3}
+  startingMissileCount: 10
   playerAudioSource: {fileID: 2874340248816093087}
   upgradeLevel: 0
 --- !u!82 &2874340248816093087

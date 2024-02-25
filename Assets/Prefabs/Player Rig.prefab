@@ -146,6 +146,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 7238005609710464523}
     m_Modifications:
     - target: {fileID: -5294916505494823085, guid: dbc7ec2130b57774c9027e0f77996e54, type: 3}
+      propertyPath: xRange
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: -5294916505494823085, guid: dbc7ec2130b57774c9027e0f77996e54, type: 3}
+      propertyPath: yRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: -5294916505494823085, guid: dbc7ec2130b57774c9027e0f77996e54, type: 3}
       propertyPath: playerRig
       value: 
       objectReference: {fileID: 0}

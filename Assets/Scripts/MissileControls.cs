@@ -7,7 +7,8 @@ public class MissileControls : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float controlSpeed = 200f;
     [SerializeField] float missileLifeTime = 3f;
-    [SerializeField] int missileDamage = 30;
+    [SerializeField] float missileDamage = 30;
+    [SerializeField] bool isEnemyWeapon = false;
     float yRotation = 0f;
     float cosOfYRotation = 0f;
     float sinOfYRotation = 0f;
@@ -41,9 +42,16 @@ public class MissileControls : MonoBehaviour
         switch (other.gameObject.tag)
         {
             case "Enemy":
-                other.gameObject.GetComponent<EnemyHealth>().ProcessHit(missileDamage);
+                if(!isEnemyWeapon)
+                {
+                    other.gameObject.GetComponent<EnemyHealth>().ProcessHit(missileDamage);
+                    //StartCoroutine(MissileTimeout(0f));
+                    Destroy(gameObject, 0f);
+                    //break;
+                }
+                //other.gameObject.GetComponent<EnemyHealth>().ProcessHit(missileDamage);
                 //StartCoroutine(MissileTimeout(0f));
-                Destroy(gameObject, 0f);
+                //Destroy(gameObject, 0f);
                 break;
             case "Terrain":
                 //StartCoroutine(MissileTimeout(0f));
@@ -51,9 +59,21 @@ public class MissileControls : MonoBehaviour
                 //StartCoroutine(TakeDamage(1f));
                 //CrashSequence();
                 break;
+            /*case "Player":
+                if(isEnemyWeapon)
+                {
+                    StartCoroutine(other.gameObject.GetComponent<PlayerHealth>().TakeDamage(1f));
+                    Destroy(gameObject, 0f);
+                    //other.gameObject.GetComponent<PlayerHealth>().StartCoroutine(TakeDamage());
+                }
+                break;*/
             default:
                 break;
         }
+    }
+    public float GetDamage()
+    {
+        return missileDamage;
     }
     IEnumerator MissileTimeout(float destroyDelay)
     {

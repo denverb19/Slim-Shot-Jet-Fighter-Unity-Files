@@ -881,11 +881,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbf6f4faa7a0c67448bc66c24e5faa20, type: 3}
---- !u!1 &1952011707 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7238005609710464520, guid: ae8d77e916db45e448cca74fc1ceed01, type: 3}
-  m_PrefabInstance: {fileID: 7238005609737279513}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2002297089 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1022849653920033126, guid: fbf6f4faa7a0c67448bc66c24e5faa20, type: 3}
@@ -1282,14 +1277,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5978003751883489979, guid: ae8d77e916db45e448cca74fc1ceed01, type: 3}
-      propertyPath: playerRig
-      value: 
-      objectReference: {fileID: 1952011707}
-    - target: {fileID: 5978003751883489979, guid: ae8d77e916db45e448cca74fc1ceed01, type: 3}
-      propertyPath: evasionCooldownLength
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7238005609710464520, guid: ae8d77e916db45e448cca74fc1ceed01, type: 3}
       propertyPath: m_Name
       value: Player Rig

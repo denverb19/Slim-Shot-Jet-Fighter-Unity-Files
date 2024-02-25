@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 797660318413763591}
   - component: {fileID: 7160871790828495118}
   - component: {fileID: 6777668329424039237}
+  - component: {fileID: 4985167619064714531}
   m_Layer: 0
   m_Name: Condor
   m_TagString: Enemy
@@ -174,6 +175,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4985167619064714531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587156712917180982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a309d8b3c339d449832e6d8072133bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryLaser: {fileID: 122648, guid: 66e0018a9e63c4348b7a340890e5b30c, type: 3}
+  primaryLaserCooldown: 0.25
 --- !u!1001 &5247868630354565356
 PrefabInstance:
   m_ObjectHideFlags: 0
