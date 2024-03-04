@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Level One - Training Day.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Scenes/Level Two - Lava Lakes.unity
+    guid: 24bc5f3c3e848bd45ab340fbd371b17e
+  - enabled: 1
     path: Assets/Scenes/Score Screen.unity
     guid: 29d6324f9f10b68498d1b688e0ae9400
   m_configObjects: {}

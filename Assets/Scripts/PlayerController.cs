@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float missileCooldown = 2f;
     ParticleSystem primaryLasersLeft;
     ParticleSystem primaryLasersRight;
+    ParticleSystem primaryOuterLasersLeft;
+    ParticleSystem primaryOuterLasersRight;
+    ParticleSystem primaryLasersTop;
+    ParticleSystem primaryLasersBottom;
     ScoreBoard currentScoreBoard;
     //AudioSource leftLaserSounds;
     //AudioSource rightLaserSounds;
@@ -39,16 +43,35 @@ public class PlayerController : MonoBehaviour
     public bool evadingRight = true;
     public bool evadeOnCooldown = false;
     public bool missileOnCooldown = false;
+    public bool laserCooldown = false;
+    public bool shipControlsDisabled = false;
     float rigYRotation = 0f;
     float cosOfYRotation = 0f;
     float sinOfYRotation = 0f;
     float missileXOffset = 0f;
     float missileZOffset = 0f;
+    int currentUpgradeLevel = 0;
+    ParticleSystem.EmissionModule leftEmitter;
+    ParticleSystem.EmissionModule rightEmitter;
+    ParticleSystem.EmissionModule leftOuterEmitter;
+    ParticleSystem.EmissionModule rightOuterEmitter;
+    ParticleSystem.EmissionModule topEmitter;
+    ParticleSystem.EmissionModule bottomEmitter;
     //private bool laserSoundsOn = false;
     void Start()
     {
         primaryLasersLeft = primaryLasers[0].GetComponent<ParticleSystem>();
         primaryLasersRight = primaryLasers[1].GetComponent<ParticleSystem>();
+        primaryOuterLasersLeft = primaryLasers[2].GetComponent<ParticleSystem>();
+        primaryOuterLasersRight = primaryLasers[3].GetComponent<ParticleSystem>();
+        primaryLasersTop= primaryLasers[4].GetComponent<ParticleSystem>();
+        primaryLasersBottom = primaryLasers[5].GetComponent<ParticleSystem>();
+        leftEmitter = primaryLasersLeft.emission;
+        rightEmitter = primaryLasersRight.emission;
+        leftOuterEmitter = primaryOuterLasersLeft.emission;
+        rightOuterEmitter = primaryOuterLasersRight.emission;
+        topEmitter = primaryLasersTop.emission;
+        bottomEmitter = primaryLasersBottom.emission;
         StartCoroutine(GetScoreBoard());
         //leftLaserSounds = primaryLasers[0].GetComponent<AudioSource>();
         //rightLaserSounds = primaryLasers[1].GetComponent<AudioSource>();
@@ -67,7 +90,11 @@ public class PlayerController : MonoBehaviour
         ProcessEvasion(evadeInput, horizontalInput);
         ProcessPlayerMovement(horizontalInput, verticalInput);
         ProcessRotation(horizontalInput, verticalInput);
-        ProcessWeaponFire(primaryFireInput, secondaryFireInput);
+        if(!shipControlsDisabled)
+        {
+            ProcessWeaponFire(primaryFireInput, secondaryFireInput);
+        }
+        //ProcessWeaponFire(primaryFireInput, secondaryFireInput);
     }
     IEnumerator GetScoreBoard()
     {
@@ -139,15 +166,15 @@ public class PlayerController : MonoBehaviour
         //transform.localRotation = Quaternion.Euler(-xRotationChange, 0f, -zRotationChange);
         transform.localRotation = Quaternion.Euler(-xRotationChange, yRotationChange, -zRotationChange);
     }
-    void ProcessWeaponFire(bool primaryFireInput, bool secondaryFireInput)
+    public void ProcessWeaponFire(bool primaryFireInput, bool secondaryFireInput)
     {
-        if(primaryFireInput)
+        if(primaryFireInput && !laserCooldown)
         {
-            SetFirePrimaryLasers(true);
+            StartCoroutine(SetFirePrimaryLasers(true));
         }
-        else
+        else if(!laserCooldown)
         {
-            SetFirePrimaryLasers(false);
+            StartCoroutine(SetFirePrimaryLasers(false));
         }
         if(secondaryFireInput && !missileOnCooldown)
         {
@@ -158,12 +185,49 @@ public class PlayerController : MonoBehaviour
             //StartCoroutine(FireMissile());
         }
     }
-    void SetFirePrimaryLasers(bool setFireOption)
+    //void SetFirePrimaryLasers(bool setFireOption)
+    IEnumerator SetFirePrimaryLasers(bool setFireOption)
     {
-        var leftEmitter = primaryLasersLeft.emission;
-        var rightEmitter = primaryLasersRight.emission;
-        leftEmitter.enabled = setFireOption;
-        rightEmitter.enabled = setFireOption;
+        //var leftEmitter = primaryLasersLeft.emission;
+        //var rightEmitter = primaryLasersRight.emission;
+        //leftEmitter.enabled = setFireOption;
+        //rightEmitter.enabled = setFireOption;
+        laserCooldown = true;
+        if(currentUpgradeLevel == 0)
+        {
+            leftEmitter.enabled = setFireOption;
+            rightEmitter.enabled = setFireOption;
+            leftOuterEmitter.enabled = false;
+            rightOuterEmitter.enabled = false;
+            topEmitter.enabled = false;
+            bottomEmitter.enabled = false;
+        }
+        else if(currentUpgradeLevel == 1)
+        {
+           // var leftOuterEmitter = primaryOuterLasersLeft.emission;
+            //var rightOuterEmitter = primaryOuterLasersRight.emission;
+            leftEmitter.enabled = setFireOption;
+            rightEmitter.enabled = setFireOption;
+            leftOuterEmitter.enabled = setFireOption;
+            rightOuterEmitter.enabled = setFireOption;
+            topEmitter.enabled = false;
+            bottomEmitter.enabled = false;
+        }
+        else if(currentUpgradeLevel == 2)
+        {
+            //var leftOuterEmitter = primaryOuterLasersLeft.emission;
+            //var rightOuterEmitter = primaryOuterLasersRight.emission;
+            //var topEmitter = primaryLasersTop.emission;
+           // var bottomEmitter = primaryLasersBottom.emission;
+            leftEmitter.enabled = setFireOption;
+            rightEmitter.enabled = setFireOption;
+            leftOuterEmitter.enabled = setFireOption;
+            rightOuterEmitter.enabled = setFireOption;
+            topEmitter.enabled = setFireOption;
+            bottomEmitter.enabled = setFireOption;
+        }
+        yield return new WaitForSeconds(0.14f);
+        laserCooldown = false;
         /*if(setFireOption && !laserSoundsOn)
         {
             laserSounds.Play();
@@ -219,5 +283,9 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(evasionCooldownLength);
         currentScoreBoard.ChangeEngineColor(255, 255, 255, 255);
         evadeOnCooldown = false;
+    }
+    public void SetUpgradeLevel(int newUpgradeLevel)
+    {
+        currentUpgradeLevel = newUpgradeLevel;
     }
 }

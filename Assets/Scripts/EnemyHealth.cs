@@ -120,8 +120,11 @@ public class EnemyHealth : MonoBehaviour
         deathVFX.transform.parent = VFXparent.transform;
         SelfDestruct selfDestructorScriptDeath = deathVFX.GetComponent<SelfDestruct>();
         deathSound.Play();
-        //EnemyShooter thisShooterScript = gameObject.GetComponent<EnemyShooter>().ResetCooldown();
-        
+        EnemyShooter thisShooterScript = gameObject.GetComponent<EnemyShooter>();
+        if(thisShooterScript != null)
+        {
+            thisShooterScript.enabled = false;
+        }
         //enemyDeathExplosion.Play();
         yield return new WaitForSeconds(endLength);
         selfDestructorScriptDeath.DestructSelf();
