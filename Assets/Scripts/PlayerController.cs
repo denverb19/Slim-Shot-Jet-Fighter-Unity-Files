@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
     public bool evadeOnCooldown = false;
     public bool missileOnCooldown = false;
     public bool laserCooldown = false;
-    public bool shipControlsDisabled = false;
+    //public bool shipControlsDisabled = false;
     float rigYRotation = 0f;
     float cosOfYRotation = 0f;
     float sinOfYRotation = 0f;
@@ -90,10 +90,10 @@ public class PlayerController : MonoBehaviour
         ProcessEvasion(evadeInput, horizontalInput);
         ProcessPlayerMovement(horizontalInput, verticalInput);
         ProcessRotation(horizontalInput, verticalInput);
-        if(!shipControlsDisabled)
-        {
+        //if(!shipControlsDisabled)
+        //{
             ProcessWeaponFire(primaryFireInput, secondaryFireInput);
-        }
+        //}
         //ProcessWeaponFire(primaryFireInput, secondaryFireInput);
     }
     IEnumerator GetScoreBoard()
@@ -287,5 +287,27 @@ public class PlayerController : MonoBehaviour
     public void SetUpgradeLevel(int newUpgradeLevel)
     {
         currentUpgradeLevel = newUpgradeLevel;
+    }
+    public void DisableLasers()
+    {
+        for(int i = 0; i < primaryLasers.Length; i++)
+        {
+            primaryLasers[i].SetActive(false);
+        }
+        /*foreach ( GameObject laser in primaryLasers)
+            {
+                laser.GetComponent<>.enabled = false;
+            }*/
+    }
+    public void EnableLasers()
+    {
+        for(int i = 0; i < primaryLasers.Length; i++)
+        {
+            primaryLasers[i].SetActive(true);
+        }
+        /*foreach ( GameObject laser in primaryLasers)
+            {
+                laser.gameObject.enabled = true;
+            }*/
     }
 }

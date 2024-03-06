@@ -240,13 +240,21 @@ public class PlayerHealth : MonoBehaviour
             t += Time.deltaTime;
     }
     }
+    public void EnableShipMovementAtLevelStart()
+    {
+        /*playerControllerscript.laserCooldown = false;
+        playerControllerscript.ProcessWeaponFire(false, false);*/
+        playerControllerscript.enabled = true;
+        playerControllerscript.EnableLasers();
+    }
     public void DisableShipMovementAtLevelEnd()
     {
-        playerControllerscript.shipControlsDisabled = true;
-        playerControllerscript.laserCooldown = false;
-        playerControllerscript.ProcessWeaponFire(false, false);
+        //playerControllerscript.shipControlsDisabled = true;
+        //playerControllerscript.laserCooldown = false;
+        //playerControllerscript.ProcessWeaponFire(false, false);
         //playerControllerscript.laserCooldown = true;
         //playerControllerscript.missileOnCooldown = true;
+        playerControllerscript.DisableLasers();
         playerControllerscript.enabled = false;
         isLanding = true;
         StartCoroutine(EndLandingSequence());
