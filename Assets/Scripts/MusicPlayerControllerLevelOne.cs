@@ -11,6 +11,11 @@ public class MusicPlayerControllerLevelOne : MonoBehaviour
         {
             Destroy(mpMainMenu.gameObject);
         }
+        MusicPlayerControllerLevelTwo mpLevelTwo = FindObjectOfType<MusicPlayerControllerLevelTwo>();
+        if(mpLevelTwo != null)
+        {
+            Destroy(mpLevelTwo.gameObject);
+        }
         int musicPlayerInstanceCount = FindObjectsOfType<MusicPlayerControllerLevelOne>().Length;
         if ( musicPlayerInstanceCount > 1)
         {

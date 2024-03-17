@@ -11,6 +11,11 @@ public class MusicPlayerControllerMainMenu : MonoBehaviour
         {
             Destroy(mpLevelOne.gameObject);
         }
+        MusicPlayerControllerLevelTwo mpLevelTwo = FindObjectOfType<MusicPlayerControllerLevelTwo>();
+        if(mpLevelTwo != null)
+        {
+            Destroy(mpLevelTwo.gameObject);
+        }
         ScoreBoard currentBoard = FindObjectOfType<ScoreBoard>();
         if(currentBoard != null)
         {
